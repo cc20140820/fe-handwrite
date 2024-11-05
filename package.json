@@ -1,0 +1,15 @@
+{
+  "name": "fe-handwrite",
+  "version": "1.0.0",
+  "description": "2024前端高频面试题之-- 手写代码篇",
+  "main": "index.js",
+  "scripts": {
+    "t": "jest ./2024/debounce.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
