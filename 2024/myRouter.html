@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Router</title>
+  </head>
+  <body>
+    <nav>
+      <!-- <a href="#/">Home</a>
+      <a href="#/about">About</a>
+      <a href="#/contact">Contact</a> -->
+      <a href="#" onclick="navigateTo('/'); return false;">Home</a> |
+      <a href="#" onclick="navigateTo('/about'); return false;">About</a> |
+      <a href="#" onclick="navigateTo('/contact'); return false;">Contact</a>
+    </nav>
+    <div id="content">
+      <!-- 这里显示路由内容 -->
+    </div>
+
+    <script>
+      const routes = {
+        "/": function () {
+          document.getElementById("content").textContent = "Home Page";
+        },
+        "/about": function () {
+          document.getElementById("content").textContent = "About Page";
+        },
+        "/contact": function () {
+          document.getElementById("content").textContent = "Contact Page";
+        }, // 添加更多路由...
+      };
+
+      // hash版本
+      //   function initRoute() {
+      //     const hash = window.location.hash.substr(1); // 去除'#'字符
+      //     if (routes[hash]) {
+      //       routes[hash](); // 调用对应的路由处理函数
+      //     } else {
+      //       routes["/"](); // 默认路由
+      //     }
+      //   }
+
+      // history版本
+      function initRoute() {
+        const path = window.location.pathname; // 获取当前路径
+        if (routes[path]) {
+          routes[path](); // 调用对应的路由处理函数
+        } else {
+          routes["/"](); // 默认路由
+        }
+      }
+
+      // 跳转到指定路径
+      function navigateTo(path) {
+        history.pushState({}, "", path); // 使用 History API 修改 URL
+        initRoute(); // 初始化路由以更新内容
+      }
+
+      // history版本
+      window.addEventListener("popstate", function () {
+        initRoute(); // 当用户点击前进或后退时，初始化路由
+      });
+
+      // hash版本
+      //   window.addEventListener("hashchange", function () {
+      //     initRoute();
+      //   });
+
+      // 页面加载时初始化路由
+      window.onload = initRoute;
+    </script>
+  </body>
+</html>
