@@ -1,8 +1,6 @@
 function add(x) {
     const sum = (y) => add(x + y)
-    sum.getResult = () => x
-    sum.valueOf = () => x
-    sum.toString = () => x
+    add.toString = () => x
     return sum
 }
 const res = add(1)(2)(3)

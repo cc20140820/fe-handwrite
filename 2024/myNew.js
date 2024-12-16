@@ -1,21 +1,8 @@
-// 创建一个新的空对象。
-// 将这个新对象的内部原型链接到构造函数的 prototype 对象。
-// 将这个新对象作为 this 上下文。
-// 如果该函数没有返回其他对象，那么返回 this。
-
-
 function myNew(constructor, ...args) {
-    // 1. 创建一个新的空对象  
-    const obj = {};
-
-    // 2. 将这个新对象的内部原型链接到构造函数的 prototype 对象  
-    obj.__proto__ = constructor.prototype;
-
-    // 3. 将这个新对象作为 this 上下文，并调用构造函数  
-    const result = constructor.apply(obj, args);
-
-    // 4. 如果构造函数返回的是一个对象，则返回这个对象；否则返回新创建的对象  
-    return result instanceof Object ? result : obj;
+    // 创建对象并设置原型
+    const obj = Object.create(constructor.prototype)
+    const res = constructor.apply(obj, args)
+    return res && (typeof res === 'object' || typeof res === 'function') ? res : obj
 }
 
 // 使用示例  

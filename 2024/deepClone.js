@@ -4,28 +4,18 @@ function shallowCopy(obj) {
     }
     return Object.assign({}, obj)
 }
-
-function deepCopy(obj, map = new WeakMap()) {
-    if (typeof obj !== 'object' || obj === null) {
-        return obj
-    }
-    if (map.has(obj)) {
-        return map.get(obj)
-    }
-    if (obj instanceof Date) {
-        return new Date(obj)
-    }
-    if (obj instanceof RegExp) {
-        return new RegExp(obj)
-    }
-
-    const newObject = Array.isArray(obj) ? [] : {}
-    map.set(obj, newObject)
-    for (let prop of Object.keys(obj)) {
-        newObject[prop] = deepCopy(obj[prop], map)
-    }
-    return newObject
+function deepClone(obj, map = new WeakMap()) {
+    if (typeof obj !== 'object' || obj === null) return obj
+    if (map.has(obj)) return map.get(obj)
+    const clone = Array.isArray(obj) ? [] : {}
+    map.set(obj, clone)
+    Reflect.ownKeys(obj).forEach((prop) => {
+        clone[prop] = deepClone(obj[prop], map)
+    })
+    return clone
 }
+
+
 
 
 function testDeepCopy() {
