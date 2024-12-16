@@ -23,7 +23,6 @@
 // 编写curry.js
 // 实现函数的分步调⽤
 // 参数数量满足 就执行函数，否则就返回新函数
-// apply
 function curry(fn) {
     return function curried(...args) {
         if (args.length >= fn.length) {
